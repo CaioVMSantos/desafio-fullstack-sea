@@ -80,6 +80,57 @@ public class ClienteService {
 
     }
 
+    @Transactional
+    public Cliente atualizar(Long id, ClienteRequestDTO dto) {
+        Cliente clienteExistente = buscarClientePorId(id);
+
+        String novoCpfLimpo = dto.getCpf().replaceAll("\\D", "");
+
+        if (!clienteExistente.getCpf().equals(novoCpfLimpo)) {
+            if (!isCpfValido(novoCpfLimpo)) {
+                throw new IllegalArgumentException("O novo CPF informado é inválido.");
+            }
+            if (clienteRepository.existsByCpf(novoCpfLimpo)) {
+                throw new IllegalArgumentException("Este novo CPF já está cadastrado em outro cliente.");
+            }
+            clienteExistente.setCpf(novoCpfLimpo);
+        }
+
+        clienteExistente.setNome(dto.getNome());
+
+        String novoCepLimpo = dto.getEndereco().getCep().replaceAll("\\D", "");
+        viaCepService.buscarCep(novoCepLimpo);
+
+        Endereco endereco = clienteExistente.getEndereco();
+        endereco.setCep(novoCepLimpo);
+        endereco.setLogradouro(dto.getEndereco().getLogradouro());
+        endereco.setBairro(dto.getEndereco().getBairro());
+        endereco.setCidade(dto.getEndereco().getCidade());
+        endereco.setUf(dto.getEndereco().getUf());
+        endereco.setComplemento(dto.getEndereco().getComplemento());
+
+        clienteExistente.getTelefones().clear();
+        List<Telefone> novosTelefones = dto.getTelefones().stream().map(telDto -> {
+            Telefone tel = new Telefone();
+            tel.setNumero(telDto.getNumero().replaceAll("\\D", ""));
+            tel.setTipo(telDto.getTipo());
+            tel.setCliente(clienteExistente);
+            return tel;
+        }).collect(Collectors.toList());
+        clienteExistente.getTelefones().addAll(novosTelefones);
+
+        clienteExistente.getEmails().clear();
+        List<Email> novosEmails = dto.getEmails().stream().map(emailDto -> {
+            Email email = new Email();
+            email.setEmail(emailDto.getEmail());
+            email.setCliente(clienteExistente);
+            return email;
+        }).collect(Collectors.toList());
+        clienteExistente.getEmails().addAll(novosEmails);
+
+        return clienteRepository.save(clienteExistente);
+    }
+
     // --- ALGORITMO OFICIAL DE VERIFICAÇÃO DE CPF DA RECEITA FEDERAL ---
     private boolean isCpfValido(String cpf) {
         if (cpf == null || cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) {

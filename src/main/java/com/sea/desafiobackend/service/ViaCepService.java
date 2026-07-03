@@ -15,7 +15,7 @@ public class ViaCepService {
             ViaCepResponseDTO response = restTemplate.getForObject(url, ViaCepResponseDTO.class);
 
             if(response != null && Boolean.TRUE.equals(response.getErro())){
-                throw new IllegalArgumentException("O CEP informado não existe na base dos correios!");
+                throw new IllegalArgumentException("O CEP informado não existe!");
             }
 
             return response;

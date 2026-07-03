@@ -95,4 +95,10 @@ public class ClienteController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ClienteRequestDTO dto) {
+        Cliente clienteAtualizado = clienteService.atualizar(id, dto);
+        ClienteResponseDTO responseDTO = converterParaResponse(clienteAtualizado);
+        return ResponseEntity.ok(responseDTO);
+    }
 }
