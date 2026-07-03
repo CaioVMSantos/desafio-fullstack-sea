@@ -4,26 +4,21 @@ import com.sea.desafiobackend.domain.Cliente;
 import com.sea.desafiobackend.domain.Email;
 import com.sea.desafiobackend.domain.Endereco;
 import com.sea.desafiobackend.domain.Telefone;
-import com.sea.desafiobackend.dto.ClienteRequestDTO;
+import com.sea.desafiobackend.dto.request.ClienteRequestDTO;
 import com.sea.desafiobackend.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Collections.replaceAll;
 
 @Service
 @RequiredArgsConstructor
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
-    private final CPFValidator cPFValidator;
+    private final ViaCepService viaCepService;
 
     @Transactional
     public Cliente salvar(ClienteRequestDTO dto) {
@@ -46,6 +41,8 @@ public class ClienteService {
 
         // ENDEREÇO
         String cepLimpo = dto.getEndereco().getCep().replaceAll("\\D", "");
+
+        viaCepService.buscarCep(cepLimpo); // Validação do CEP via API ViaCEP
 
         Endereco endereco = new Endereco();
         endereco.setCep(cepLimpo);
