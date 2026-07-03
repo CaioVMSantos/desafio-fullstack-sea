@@ -1,4 +1,4 @@
-package com.sea.desafiobackend.dto;
+package com.sea.desafiobackend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

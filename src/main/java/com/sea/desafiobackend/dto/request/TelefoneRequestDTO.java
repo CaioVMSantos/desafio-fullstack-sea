@@ -1,4 +1,4 @@
-package com.sea.desafiobackend.dto;
+package com.sea.desafiobackend.dto.request;
 
 import com.sea.desafiobackend.enums.TipoTelefone;
 import lombok.AllArgsConstructor;
