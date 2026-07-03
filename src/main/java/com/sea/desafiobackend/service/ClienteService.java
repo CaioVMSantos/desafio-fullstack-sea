@@ -114,4 +114,8 @@ public class ClienteService {
             return false;
         }
     }
+
+    public List<Cliente> buscarTodosClientes() {
+        return clienteRepository.findAll();
+    }
 }
