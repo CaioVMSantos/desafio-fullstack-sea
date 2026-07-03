@@ -175,4 +175,9 @@ public class ClienteService {
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com o ID: " + id));
     }
+
+    public void deletarCliente(Long id){
+        Cliente cliente = buscarClientePorId(id);
+        clienteRepository.delete(cliente);
+    }
 }

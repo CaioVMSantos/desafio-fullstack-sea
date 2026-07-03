@@ -101,4 +101,10 @@ public class ClienteController {
         ClienteResponseDTO responseDTO = converterParaResponse(clienteAtualizado);
         return ResponseEntity.ok(responseDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        clienteService.deletarCliente(id);
+        return ResponseEntity.noContent().build();
+    }
 }
