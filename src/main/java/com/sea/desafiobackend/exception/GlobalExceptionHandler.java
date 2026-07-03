@@ -44,4 +44,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiErrorDTO> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        ApiErrorDTO erro = new ApiErrorDTO(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
 }

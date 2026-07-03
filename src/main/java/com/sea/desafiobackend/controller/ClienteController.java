@@ -88,4 +88,11 @@ public class ClienteController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> buscarPorId(@PathVariable Long id){
+        Cliente cliente = clienteService.buscarClientePorId(id);
+        ClienteResponseDTO responseDTO = converterParaResponse(cliente);
+        return ResponseEntity.ok(responseDTO);
+    }
+
 }

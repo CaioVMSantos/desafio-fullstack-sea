@@ -5,6 +5,7 @@ import com.sea.desafiobackend.domain.Email;
 import com.sea.desafiobackend.domain.Endereco;
 import com.sea.desafiobackend.domain.Telefone;
 import com.sea.desafiobackend.dto.request.ClienteRequestDTO;
+import com.sea.desafiobackend.exception.ResourceNotFoundException;
 import com.sea.desafiobackend.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -117,5 +118,10 @@ public class ClienteService {
 
     public List<Cliente> buscarTodosClientes() {
         return clienteRepository.findAll();
+    }
+
+    public Cliente buscarClientePorId(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com o ID: " + id));
     }
 }
