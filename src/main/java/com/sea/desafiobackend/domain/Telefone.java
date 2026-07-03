@@ -1,10 +1,18 @@
 package com.sea.desafiobackend.domain;
 
 import com.sea.desafiobackend.enums.TipoTelefone;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "telefone")
 public class Telefone {
 

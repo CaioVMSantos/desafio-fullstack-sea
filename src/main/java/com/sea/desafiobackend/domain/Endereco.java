@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "endereco")
@@ -23,7 +24,7 @@ public class Endereco {
     private String cep;
 
     @Column(nullable = false, length = 150)
-    private String longradouro;
+    private String logradouro;
 
     @Column(nullable = false, length = 100)
     private String bairro;
