@@ -28,6 +28,9 @@ public class Endereco {
     @Column(nullable = false, length = 100)
     private String bairro;
 
+    @Column(nullable = false, length = 100)
+    private String cidade;
+
     @Column(nullable = false, length = 2)
     private String uf;
 
