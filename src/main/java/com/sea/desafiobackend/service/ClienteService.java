@@ -167,7 +167,11 @@ public class ClienteService {
         }
     }
 
-    public List<Cliente> buscarTodosClientes() {
+    public List<Cliente> listar(String nomeProcurado) {
+        if (nomeProcurado != null && !nomeProcurado.trim().isEmpty()) {
+            return clienteRepository.findByNomeContainingIgnoreCase(nomeProcurado);
+        }
+        // Senão retorna o padrão de todos os clientes cadastrados.
         return clienteRepository.findAll();
     }
 
@@ -180,4 +184,7 @@ public class ClienteService {
         Cliente cliente = buscarClientePorId(id);
         clienteRepository.delete(cliente);
     }
+
+
+
 }

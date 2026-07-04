@@ -78,8 +78,8 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponseDTO>> listarTodos(){
-        List<Cliente> clientes = clienteService.buscarTodosClientes();
+    public ResponseEntity<List<ClienteResponseDTO>> listar(@RequestParam(required = false) String nome) {
+        List<Cliente> clientes = clienteService.listar(nome);
 
         List<ClienteResponseDTO> response = clientes.stream()
                 .map(this::converterParaResponse)
