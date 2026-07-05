@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class TokenResponseDTO {
 
+    private String mensagem;
     private String token;
     private String tipo; // Vai guardar a palavra "Bearer"
 
