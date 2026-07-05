@@ -40,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/login", "/auth/registrar").permitAll()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/clientes/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
