@@ -1,5 +1,6 @@
 package com.sea.desafiobackend.domain;
 
+import com.sea.desafiobackend.enums.Perfil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,14 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
+    private Perfil perfil;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.perfil != null) {
+            return Collections.singletonList(new SimpleGrantedAuthority(this.perfil.name()));
+        }
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
