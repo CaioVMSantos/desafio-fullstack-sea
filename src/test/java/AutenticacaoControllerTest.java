@@ -86,6 +86,19 @@ class AutenticacaoControllerTest {
     }
 
     @Test
+    void registrar_ComDadosInvalidos_DeveRetornarBadRequest400() throws Exception {
+        RegistroRequestDTO dto = new RegistroRequestDTO();
+        dto.setLogin("");
+        dto.setSenha("123456");
+        dto.setPerfil(null);
+
+        mockMvc.perform(post("/auth/registrar")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void autenticar_ComCredenciaisValidas_DeveRetornarToken() throws Exception {
         LoginRequestDTO dto = new LoginRequestDTO();
         dto.setLogin("teste@sea.com");
@@ -117,5 +130,17 @@ class AutenticacaoControllerTest {
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isUnauthorized()) // Espera Status 401
                 .andExpect(content().string("Login ou senha inválidos!"));
+    }
+
+    @Test
+    void autenticar_ComDadosInvalidos_DeveRetornarBadRequest400() throws Exception {
+        LoginRequestDTO dto = new LoginRequestDTO();
+        dto.setLogin("teste@sea.com");
+        dto.setSenha("");
+
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isBadRequest());
     }
 }
