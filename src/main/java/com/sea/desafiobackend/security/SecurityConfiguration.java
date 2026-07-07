@@ -49,13 +49,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth/login", "/auth/registrar").permitAll()
+                // Rotas públicas
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+
+                // Regras de Clientes
                 .antMatchers(HttpMethod.DELETE, "/clientes/**").hasAuthority("ROLE_ADMIN")
+
+                // Regras de Usuários (Apenas ADMIN pode registrar ou gerenciar outros usuários)
+                .antMatchers(HttpMethod.POST, "/auth/registrar").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/usuarios/**").hasAuthority("ROLE_ADMIN")
+
+                // Demais rotas exigem usuário logado (Admin ou Padrão)
                 .anyRequest().authenticated()
-                .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
