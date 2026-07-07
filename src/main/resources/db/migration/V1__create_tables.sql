@@ -47,11 +47,3 @@ CREATE TABLE email
     email      VARCHAR(150) NOT NULL,
     CONSTRAINT fk_email_cliente FOREIGN KEY (cliente_id) REFERENCES cliente (id) ON DELETE CASCADE
 );
-
--- Inserção dos usuários no desafio
--- Nota: As senhas reais serão criptografadas com BCrypt mais adiante no Spring Security.
--- Por enquanto, inseri os registros para estruturar o ambiente.
-INSERT INTO usuario (username, password, role)
-VALUES ('admin', '123qwe!@#', 'ADMIN');
-INSERT INTO usuario (username, password, role)
-VALUES ('comum', '123qwe123', 'PADRAO');
