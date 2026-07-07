@@ -10,7 +10,7 @@
 ## Visão Geral
 API RESTful desenvolvida como parte do desafio técnico da **SEA** (para o cargo de Desenvolvedor BackEnd Júnior). O sistema é responsável pelo gerenciamento de clientes e seus respectivos telefones, incorporando um sistema robusto de autenticação, controle de acesso por perfis (RBAC) e cobertura de testes automatizados.
 
-> **Nota:** A aplicação Front-End para consumo desta API está prevista para a próxima fase do desenvolvimento.
+> **FrontEnd:** https://github.com/CaioVMSantos/desafio-fullstack-sea-frontend-.
 
 ---
 
