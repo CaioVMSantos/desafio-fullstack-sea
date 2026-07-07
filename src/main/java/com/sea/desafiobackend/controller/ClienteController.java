@@ -36,7 +36,6 @@ public class ClienteController {
         ClienteResponseDTO dto = new ClienteResponseDTO();
         dto.setId( cliente.getId() );
         dto.setNome( cliente.getNome() );
-        // Recoloca a máscara do CPF, como pede no edital: 12345678901 -> 123.456.789-01
         dto.setCpf(cliente.getCpf().replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4"));
 
         EnderecoResponseDTO enderecoDTO = new EnderecoResponseDTO();
@@ -61,7 +60,7 @@ public class ClienteController {
             } else if (num.length() == 10) {
                 telDTO.setNumero(num.replaceFirst("(\\d{2})(\\d{4})(\\d{4})", "($1) $2-$3")); // Fixo
             } else {
-                telDTO.setNumero(num); // Fallback
+                telDTO.setNumero(num);
             }
             return telDTO;
         }).collect(Collectors.toList()));

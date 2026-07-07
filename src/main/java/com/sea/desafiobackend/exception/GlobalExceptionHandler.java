@@ -9,27 +9,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestControllerAdvice // Avisa ao Spring que esta classe vai escutar os erros de todos os Controllers
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 1. TRATAMENTO DE REGRAS DE NEGÓCIO (Service)
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiErrorDTO> handleIllegalArgumentException(IllegalArgumentException ex) {
 
         ApiErrorDTO erro = new ApiErrorDTO(
-                HttpStatus.BAD_REQUEST.value(), // Código 400
-                ex.getMessage(), // Mensagem da Service
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
                 null
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
-    // 2. TRATAMENTO DE VALIDAÇÕES DO DTO (@Valid)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
-        // Pega a lista de todos os campos que falharam na validação e formata a string
         List<String> errosDeValidacao = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()

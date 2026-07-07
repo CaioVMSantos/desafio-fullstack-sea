@@ -51,6 +51,16 @@ Para garantir manutenibilidade, segurança e escalabilidade, foram adotados os s
 2. **Login:** Faça um `POST` em `/auth/login` com as credenciais. A API retornará um Token JWT.
 3. **Acesso:** Envie o token no Header `Authorization` (formato Bearer) para acessar rotas protegidas (ex: `/clientes`).
 
+### Usuários de Teste (Pré-configurados)
+Você pode utilizar as credenciais abaixo para testes rápidos, que constavam no edital do desafio:
+
+* **Usuário Admin:**
+  * **Login:** `usuarioadmin@sea.com`
+  * **Senha:** `123qwe!@#`
+* **Usuário Padrão:**
+  * **Login:** `usuariopadrao@sea.com`
+  * **Senha:** `123qwe123`
+
 ---
 
 ## Como Executar o Projeto
@@ -118,7 +128,7 @@ A API estará disponível em `http://localhost:8080`.
 
 Essa API está totalmente documentada via **Swagger**. Com a aplicação rodando, acesse:
 
-👉 **[http://localhost:8080/swagger-ui.html](https://www.google.com/search?q=http://localhost:8080/swagger-ui.html)**
+👉 **http://localhost:8080/swagger-ui.html**
 
 *Dica: Utilize o botão **"Authorize"** no topo da página do Swagger para inserir o seu Token JWT (Bearer) e testar os endpoints restritos diretamente pelo navegador.*
 
@@ -138,3 +148,10 @@ mvn test
 ---
 
 *Desenvolvido por Caio Victor Mendonça, com dedicação para o Desafio Técnico SEA.*
+<<<<<<< HEAD
+=======
+
+```
+
+```
+>>>>>>> 13d879a (docs: finalize readme with test credentials and clean code)

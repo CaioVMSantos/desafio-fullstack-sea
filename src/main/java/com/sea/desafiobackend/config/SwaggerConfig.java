@@ -20,9 +20,7 @@ public class SwaggerConfig {
                         .title("API Desafio SEA")
                         .version("1.0")
                         .description("Documentação interativa da API. Usa o endpoint de Login para obter o Token JWT e clica em 'Authorize' para testares as rotas protegidas."))
-                // Adiciona o cadeado de segurança em todas as rotas
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
-                // Configura o esquema para aceitar o Token Bearer JWT
                 .components(
                         new Components()
                                 .addSecuritySchemes(securitySchemeName,
