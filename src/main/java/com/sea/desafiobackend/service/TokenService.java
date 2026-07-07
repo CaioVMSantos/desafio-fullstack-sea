@@ -27,6 +27,7 @@ public class TokenService {
         return Jwts.builder()
                 .setIssuer("API desafio SEA Tecnologia")
                 .setSubject(logado.getId().toString())
+                .claim("role", logado.getPerfil())
                 .setIssuedAt(hoje)
                 .setExpiration(dataExpiracao)
                 .signWith(SignatureAlgorithm.HS256, secret)
