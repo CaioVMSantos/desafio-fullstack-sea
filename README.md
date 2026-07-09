@@ -148,10 +148,3 @@ mvn test
 ---
 
 *Desenvolvido por Caio Victor Mendonça, com dedicação para o Desafio Técnico SEA.*
-<<<<<<< HEAD
-=======
-
-```
-
-```
->>>>>>> 13d879a (docs: finalize readme with test credentials and clean code)
